@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
-  validates :username, presence: ture, 
+  has_many :articles
+  before_save { self.email = email.downcase }
+  validates :username, presence: true, 
             uniqueness: { case_sensitive: false },
             length: { minimun: 3, maximum:25 }
   
