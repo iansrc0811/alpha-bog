@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get 'about', to: 'pages#about'
   
   resources :articles
+  #參考 https://ihower.tw/rails4/restful.html 很詳細
   
   get 'signup', to: 'users#new'
   #post 'users', to: 'users#create'
