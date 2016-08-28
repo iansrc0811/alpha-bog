@@ -62,7 +62,8 @@ class ArticlesController < ApplicationController
     end
     
     def require_same_user
-      if current_user != @article.user
+      if current_user != @article.user and !current_user.admin?
+        # 'and' operator : http://www.virtuouscode.com/2010/08/02/using-and-and-or-in-ruby/
         flash[:danger] = "You can only deit or delete your own articles"
         redirect_to root_path
       end
