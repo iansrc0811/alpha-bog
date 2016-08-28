@@ -5,7 +5,7 @@ class ArticlesController < ApplicationController
   # only 'show' action don't need a loggined user
   #'require_user' method is definded in  application_controller.rb
   before_action :require_same_user, only: [:edit, :update, :delete]
-  #限制只有相同的使用者可以修改或聞除文章 
+  #限制只有相同的使用者可以修改或刪除文章 
 
 
   def index
