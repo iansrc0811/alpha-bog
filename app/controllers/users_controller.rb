@@ -48,6 +48,9 @@ class UsersController < ApplicationController
     redirect_to users_path
     # we want to delete articles too. Edit 'models/user.rb', add 'dependent'
   end
+  def changename
+  
+  end
   private
   def user_params
     params.require(:user).permit(:username, :email, :password)
