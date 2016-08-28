@@ -1,6 +1,13 @@
 class ArticlesController < ApplicationController
+  # before_action 是有先後順序的
   before_action :set_article, only: [:edit, :update, :show, :destroy]
-  
+  before_action :require_user, except: [:index, :show] # 禁止沒登入就修改 除了inex and show actions
+  # only 'show' action don't need a loggined user
+  #'require_user' method is definded in  application_controller.rb
+  before_action :require_same_user, only: [:edit, :update, :delete]
+  #限制只有相同的使用者可以修改或聞除文章 
+
+
   def index
     @articles = Article.paginate(page: params[:page], per_page: 5)
   end
@@ -16,7 +23,7 @@ class ArticlesController < ApplicationController
   
   def create 
     @article = Article.new(article_params)
-    @article.user = User.first
+    @article.user = current_user
     if @article.save
       flash[:success] = "Article was successfully created"
       redirect_to article_path(@article)
@@ -52,5 +59,13 @@ class ArticlesController < ApplicationController
     
     def article_params
       params.require(:article).permit(:title,:description)
+    end
+    
+    def require_same_user
+      if current_user != @article.user
+        flash[:danger] = "You can only deit or delete your own articles"
+        redirect_to root_path
+      end
+      
     end
 end
