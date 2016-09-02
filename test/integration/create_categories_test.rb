@@ -1,8 +1,16 @@
 require 'test_helper'
 
 class CreateCategoriesTest < ActionDispatch::IntegrationTest
+  
+  def setup
+    @user = User.create(username: "john", email: "john@example.com", password: "password", admin: true)
+  end
+  
+  
   #模擬新增一個category的過程並檢查是否成功 
   test "get new category form and create category" do
+    #登入
+    sign_in_as(@user, "password")
     get new_category_path  #打開(get 動詞) new_category路徑(path)
     assert_template 'categories/new' #正確產生頁面
       #Asserts that the request was rendered with the appropriate template file or partials.
@@ -15,6 +23,7 @@ class CreateCategoriesTest < ActionDispatch::IntegrationTest
   end
   
   test "invalid category submission results in failure" do
+    sign_in_as(@user, "password") # see test/test_helper.rb
     get new_category_path  #打開(get 動詞) new_category路徑(path)
     assert_template 'categories/new' #正確產生頁面
       #Asserts that the request was rendered with the appropriate template file or partials.
