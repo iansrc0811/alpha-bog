@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
     !!current_user  # if have curent user returns true, otherwise returns false
   end
   
-  def require_user
+  def require_user # 因為沒有要在view中用到所以不用在helper_method中宣告。
     if !logged_in?
       flash[:danger] = "You must be logged in to perform that action"
       redirect_to root_path
