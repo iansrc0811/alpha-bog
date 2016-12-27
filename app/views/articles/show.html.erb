@@ -21,7 +21,7 @@
    <%= simple_format(@article.description) %>
    <% if @article.categories.any? %>
     <p>Categories: <%= render @article.categories %></p> 
-    <!-- render categories/_category.html.erb. Don't not why, it's rails magic-->
+    <!-- render categories/_category.html.erb. Don't ask why, it's rails magic-->
    <% end %>
   <div class="article-actions">
     <% if logged_in? && (current_user == @article.user || current_user.admin?) %>
